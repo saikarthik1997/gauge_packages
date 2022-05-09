@@ -14,6 +14,10 @@ class GaugesPackage extends StatelessWidget {
         width: 300.0,
         child: Stack(
           children: [
+            CustomPaint(
+              size: const Size(380, 300),
+              painter: ArcPainter(),
+            ),
             Positioned(child: Container(width:150.0,height:60.0,color: Colors.grey,),top: 120.0,left:75 ),
             RadialGauge(
               radius: 150,
@@ -88,25 +92,15 @@ class ArcPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    final rect = Rect.fromLTRB(size.width * 0.15, size.width * 0.05,
-        size.width * 0.95, size.height * 0.95);
-    final rect2 = Rect.fromLTRB(
-        size.width * 0.15 + size.width * 0.1,
-        size.width * 0.05 + size.width * 0.1,
-        size.width * 0.95 - size.width * 0.1,
-        size.height * 0.95 - size.width * 0.1);
-
+    final rect = Rect.fromLTRB(0, 0,
+        size.width, size.height);
     const startAngle = -3.14159;
     const sweepAngle = 3.14159;
     const useCenter = false;
     final paint1 = Paint()
       ..color = this.color
       ..style = PaintingStyle.stroke
-      ..strokeWidth = size.width * 0.1;
-    final paint2 = Paint()
-      ..color = this.color
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = size.width * 0.1;
+      ..strokeWidth = size.width * 0.2;
     canvas.drawArc(
         rect,
         startAngle,
@@ -121,8 +115,7 @@ class ArcPainter extends CustomPainter {
             stops: [0.5, 1.0],
           ).createShader(rect)
     );
-    canvas.drawArc(
-        rect2, startAngle, sweepAngle, useCenter, paint2..color = Colors.yellow);
+
   }
 
   @override
