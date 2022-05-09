@@ -1,6 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:gauges/gauges.dart';
 
 class GaugesPackage extends StatelessWidget {
@@ -18,7 +19,10 @@ class GaugesPackage extends StatelessWidget {
               size: const Size(380, 300),
               painter: ArcPainter(),
             ),
-            Positioned(child: Container(width:150.0,height:60.0,color: Colors.grey,),top: 120.0,left:75 ),
+            Positioned(child: Container(
+              child: SvgPicture.asset("assets/arrow_base.svg",height: 90.0,width:90.0)
+              // width:150.0,height:60.0
+              ,),top: 95.0,left:80.0 ),
             RadialGauge(
               radius: 150,
               axes: [
@@ -29,6 +33,7 @@ class GaugesPackage extends StatelessWidget {
                     maxAngle: 90,
                     segments: [
                       const RadialGaugeSegment(
+
                         borderRadius:
                             BorderRadius.only(bottomLeft: Radius.circular(8.0)),
                         minValue: 0,
