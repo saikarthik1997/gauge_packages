@@ -15,23 +15,24 @@ class GaugesPackage extends StatelessWidget {
         children: [
           Row(
             mainAxisSize: MainAxisSize.min,
-            children: const [
-              GaugeWidget(),
+            children:  [
+              GaugeWithLabelWidget(),
+
               SizedBox(
                 width: 50.0,
               ),
-              GaugeWidget()
+              GaugeWithLabelWidget(),
             ],
           ),
           const SizedBox(height: 40.0),
           Row(
             mainAxisSize: MainAxisSize.min,
             children: const [
-              GaugeWidget(),
+              GaugeWithLabelWidget(),
               SizedBox(
                 width: 50.0,
               ),
-              GaugeWidget()
+              GaugeWithLabelWidget(),
             ],
           ),
         ],
@@ -40,11 +41,35 @@ class GaugesPackage extends StatelessWidget {
   }
 }
 
-class GaugeWidget extends StatelessWidget {
-  const GaugeWidget({Key? key}) : super(key: key);
+class GaugeWithLabelWidget extends StatelessWidget {
+  final double value;
+  const GaugeWithLabelWidget({this.value=0.0,Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    bool isBad=value<=33;
+    bool isAverage=value>33 && value<=66;
+    bool isGood=value>66;
+    return   Stack(
+      children: [
+        Container(color:Colors.transparent,width:349.0,height:250.0),
+        Positioned(top:60.0,left:20.0, child: GaugeWidget(value:value)),
+        if(isBad)
+          Positioned(left:10.0,top:50.0,child: Text("Bad"))
+      ],
+    );
+  }
+}
+
+
+
+class GaugeWidget extends StatelessWidget {
+  final double value;
+  const GaugeWidget({this.value=0, Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+
     return Stack(
       children: [
         CustomPaint(
